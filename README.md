@@ -17,7 +17,7 @@ Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad d�
 
 ```
 function errorCallback(error) {
-    switch(error.code) {
+    switch(error.code) {README.mdREADME.md
         case error.PERMISSION_DENIED:
             // Geolocation API stöds inte, gör något
             break;
@@ -30,13 +30,79 @@ function errorCallback(error) {
     }
 }
 ```
-
-Bilder läggs i samma mapp som markdown-filen.
-
-![](android.png)
-
-Läs gärna:
-
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+Ändrat namn på appen.
+```
+<string name="app_name">a19clasvApp</string>
+```
+Gett tillstånd att använda internet.
+```
+<uses-permission android:name="android.permission.INTERNET"/>
+```
+Skapat ett WebView element med ID:et "my_webview".
+```
+<WebView
+        android:id="@+id/my_webview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+```
+Importerat det jag behöver för WebView och WebViewClient.
+```
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+```
+Skapat en privat WebView.
+```
+    private WebView myWebView;
+```
+Satte en WebViewClient på my_webview
+```
+        myWebView = findViewById(R.id.my_webview);
+        myWebView.setWebViewClient(new WebViewClient());
+```
+Aktiverade Javascript.
+```
+        myWebView.getSettings().setJavaScriptEnabled(true);
+```
+Visar den yttre hemsidan https://www.his.se/ i showExternalWebPage().
+```
+    public void showExternalWebPage(){
+        myWebView.loadUrl("https://www.his.se/");
+    }
+```
+Headern "This is the internal web page" i about.html.
+```
+<html>
+<body>
+<h1>This is the internal web page</h1>
+</body>
+</html>
+```
+Visar den inre hemsidan about.html i showInternalWebPage().
+```
+    public void showInternalWebPage(){
+        myWebView.loadUrl("file:///android_asset/about.html");
+    }
+```
+Kallar på showExternalWebPage() om du väljer "External Web Page".
+```
+        if (id == R.id.action_external_web) {
+            showExternalWebPage();
+            return true;
+        }
+```
+Kallar på showInternalWebPage() om du väljer "Internal Web Page".
+```
+        if (id == R.id.action_internal_web) {
+            showInternalWebPage();
+            return true;
+        }
+```
+Den yttre webbsidan:
+![](Screenshot_20220408_144821.png)
+Den inre webbsidan:
+![](Screenshot_20220408_145119.png)
